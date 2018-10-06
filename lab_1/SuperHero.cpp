@@ -29,6 +29,7 @@ SuperHero::~SuperHero() {
     delete[] SuperHero::bd;
     delete[] SuperHero::ability;
     delete[] SuperHero::weaknesses;
+
 }
 
 char *SuperHero::getName() const {
@@ -106,21 +107,25 @@ DeQuSH DeQuSH::create_empty() {
 }
 
 void DeQuSH::PushBack(SuperHero *target) {
-    if (DeQuSH::first == nullptr) {
-        DeQuSH::first = target;
+    SuperHero *tmp = DeQuSH::last;
+    if (tmp == nullptr) {
         DeQuSH::last = target;
+        DeQuSH::first = target;
     } else {
-        DeQuSH::last->next = target;
+        tmp->next = target;
+        target->previous = tmp;
         DeQuSH::last = target;
     }
 }
 
 void DeQuSH::PushFront(SuperHero *target) {
-    if (DeQuSH::first == nullptr) {
-        DeQuSH::first = target;
+    SuperHero *tmp = DeQuSH::first;
+    if (tmp == nullptr) {
         DeQuSH::last = target;
+        DeQuSH::first = target;
     } else {
-        DeQuSH::first->previous = target;
+        tmp->previous = target;
+        target->next = tmp;
         DeQuSH::first = target;
     }
 }
@@ -129,6 +134,9 @@ SuperHero *DeQuSH::PopBack() {
     if (DeQuSH::last != nullptr) {
         SuperHero *tmp = DeQuSH::last;
         DeQuSH::last = tmp->previous;
+        DeQuSH::last->next = nullptr;
+        tmp->previous = nullptr;
+        tmp->next = nullptr;
         return tmp;
     }
     return nullptr;
@@ -138,21 +146,44 @@ SuperHero *DeQuSH::PopFront() {
     if (DeQuSH::first != nullptr) {
         SuperHero *tmp = DeQuSH::first;
         DeQuSH::first = tmp->next;
+        DeQuSH::first->previous = nullptr;
+        tmp->previous = nullptr;
+        tmp->next = nullptr;
         return tmp;
     }
     return nullptr;
 }
 
 int DeQuSH::IsEmpty() {
-    return 0;
+    if (DeQuSH::first == nullptr) {
+        return 0;
+    } else {
+        return -1;
+    }
 }
 
 void DeQuSH::clear() {
+    SuperHero *current = DeQuSH::first;
+    DeQuSH::first = nullptr;
+    DeQuSH::last = nullptr;
+    if (current == nullptr) {
+        return;
+    }
+    while (current != nullptr) {
+        SuperHero *tmp = current->next;
+        delete current;
+        current = tmp;
+    }
 
 }
 
 void DeQuSH::print() {
+
     SuperHero *current = DeQuSH::first;
+    if (current == nullptr) {
+        std::cout << "EMPTY Q" << std::endl;
+        return;
+    }
     while (current != nullptr) {
         print(current);
         current = current->next;
@@ -182,6 +213,27 @@ int DeQuSH::load(const char *path) {
 }
 
 void DeQuSH::insert(SuperHero *hero, int n) {
+    SuperHero *tmp = DeQuSH::first;
+    if (tmp == nullptr) {
+        DeQuSH::first = hero;
+        DeQuSH::last = hero;
+    } else {
+        while (n > 0 && tmp->next != nullptr) {
+            tmp = tmp->next;
+            n--;
+        }
+        if (n > 0) {
+            tmp->next = hero;
+            hero->previous = tmp;
+        }
+        if (n == 0) {
+            tmp->previous->next = hero;
+            hero->previous = tmp->previous;
+            hero->next = tmp;
+            tmp->previous = hero;
+        }
 
+
+    }
 }
 
