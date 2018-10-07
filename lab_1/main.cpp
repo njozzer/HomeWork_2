@@ -2,6 +2,7 @@
 #include "SuperHero.h"
 #include <cstring>
 
+const char *path = "D:\\programming\\C_LAB\\LAB_1\\data.txt";
 
 //search name
 //filter strength_rating
@@ -22,7 +23,7 @@ int main() {
     std::cin >> weaknesses;
     std::cin >> win_amount;
     std::cin >> strength_rating;
-    const char *path = "D:\\programming\\C_LAB\\LAB_1\\data.txt";
+
     DeQuSH dq;
     for (int i = 0; i < 10; i++) {
         char *name1 = new char[32];
@@ -47,8 +48,15 @@ int main() {
 
         dq.insert(sh, 1);
     }
+    dq.save(path);
     dq.print();
-
+    std::cout << "\n\n\n";
+    DeQuSH dq1;
+    dq1.load(path);
+    dq1.print();
+    /*DeQuSH dq;
+    dq.load(path);
+    dq.print();*/
     return 0;
 }
 

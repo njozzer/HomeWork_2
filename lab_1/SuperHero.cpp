@@ -1,6 +1,7 @@
 #include "SuperHero.h"
 #include <cstring>
 #include <iostream>
+#include <fstream>
 
 SuperHero::SuperHero(char name[32], char real_name[32],
                      char bd[32], int male,
@@ -205,10 +206,49 @@ void DeQuSH::print(SuperHero *hero) {
 }
 
 int DeQuSH::save(const char *path) {
+    std::ofstream fstr;
+    fstr.open(path);
+    SuperHero *current = DeQuSH::first;
+    if (current == nullptr) {
+        return 0;
+    }
+    while (current != nullptr) {
+        fstr << current->getName() << " " << current->getReal_name() << " " << current->getBd() << " "
+             << current->getMale() << " " << current->getAbility() << " " << current->getWeaknesses() << " "
+             << current->getWin_amount() << " " << current->getStrength_rating();
+        if (current->next != nullptr) {
+            fstr << std::endl;
+        }
+        current = current->next;
+    }
+    fstr.close();
     return 0;
 }
 
 int DeQuSH::load(const char *path) {
+    std::ifstream fstr;
+    fstr.open(path);
+    while (!fstr.eof()) {
+        char *name = new char[32];
+        char *real_name = new char[32];
+        char *bd = new char[32];
+        int male = 0;
+        char *ability = new char[32];
+        char *weaknesses = new char[128];
+        int win_amount = 0;
+        double strength_rating = 0.0;
+        fstr >> name;
+        fstr >> real_name;
+        fstr >> bd;
+        fstr >> male;
+        fstr >> ability;
+        fstr >> weaknesses;
+        fstr >> win_amount;
+        fstr >> strength_rating;
+        SuperHero *sh = new SuperHero(name, real_name, bd, male, ability, weaknesses, win_amount, strength_rating);
+        DeQuSH::PushBack(sh);
+    }
+    fstr.close();
     return 0;
 }
 
