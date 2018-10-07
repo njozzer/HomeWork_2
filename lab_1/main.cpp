@@ -2,6 +2,7 @@
 #include "SuperHero.h"
 #include <cstring>
 
+using namespace Heroes;
 const char *path = "D:\\programming\\C_LAB\\LAB_1\\data.txt";
 
 //search name
@@ -42,17 +43,13 @@ int main() {
         strcpy(ability1, strcat(ability, std::to_string(i).c_str()));
         strcpy(weaknesses1, strcat(weaknesses, std::to_string(i).c_str()));
         win_amount1 = win_amount;
-        strength_rating1 = strength_rating;
+        strength_rating1 = strength_rating + i;
         SuperHero *sh = new SuperHero(name1, real_name1, bd1, male1, ability1, weaknesses1, win_amount1,
                                       strength_rating1);
 
         dq.insert(sh, 1);
     }
-    dq.save(path);
-    dq.print();
-    std::cout << "\n\n\n";
-    DeQuSH dq1;
-    dq1.load(path);
+    DeQuSH dq1 = dq.filter(234,'=');
     dq1.print();
     /*DeQuSH dq;
     dq.load(path);

@@ -1,87 +1,96 @@
+namespace Heroes {
+    class SuperHero {
+    public:
+        char *getName() const;
 
-class SuperHero {
-public:
-    char *getName() const;
+        void setName(char *name);
 
-    void setName(char *name);
+        char *getReal_name() const;
 
-    char *getReal_name() const;
+        void setReal_name(char *real_name);
 
-    void setReal_name(char *real_name);
+        char *getBd() const;
 
-    char *getBd() const;
+        void setBd(char *bd);
 
-    void setBd(char *bd);
+        int getMale() const;
 
-    int getMale() const;
+        void setMale(int male);
 
-    void setMale(int male);
+        char *getAbility() const;
 
-    char *getAbility() const;
+        void setAbility(char *ability);
 
-    void setAbility(char *ability);
+        char *getWeaknesses() const;
 
-    char *getWeaknesses() const;
+        void setWeaknesses(char *weaknesses);
 
-    void setWeaknesses(char *weaknesses);
+        int getWin_amount() const;
 
-    int getWin_amount() const;
+        void setWin_amount(int win_amount);
 
-    void setWin_amount(int win_amount);
+        double getStrength_rating() const;
 
-    double getStrength_rating() const;
-
-    void setStrength_rating(double strength_rating);
-
-    SuperHero *next;
-    SuperHero *previous;
-
-    SuperHero(char name[32], char real_name[32], char bd[32], int male, char ability[32], char weaknesses[128],
-              int win_amount, double strength_rating);
-
-    ~SuperHero();
-
-private:
-    char *name;
-    char *real_name;
-    char *bd;
-    int male;
-    char *ability;
-    char *weaknesses;
-    int win_amount;
-    double strength_rating;
+        void setStrength_rating(double strength_rating);
 
 
-};
+        SuperHero *next;
+        SuperHero *previous;
 
-class DeQuSH {
-public:
-    DeQuSH();
+        SuperHero(char name[32], char real_name[32], char bd[32], int male, char ability[32], char weaknesses[128],
+                  int win_amount, double strength_rating);
 
-    SuperHero *first;
-    SuperHero *last;
+        ~SuperHero();
 
-    static DeQuSH create_empty();
 
-    void PushBack(SuperHero *target);
+    private:
+        char *name;
+        char *real_name;
+        char *bd;
+        int male;
+        char *ability;
+        char *weaknesses;
+        int win_amount;
+        double strength_rating;
 
-    void PushFront(SuperHero *target);
 
-    SuperHero *PopBack();
+    };
 
-    SuperHero *PopFront();
+    class DeQuSH {
+    public:
+        DeQuSH();
 
-    int IsEmpty();
+        SuperHero *first;
+        SuperHero *last;
 
-    void clear();
+        static DeQuSH create_empty();
 
-    void print();
+        void PushBack(SuperHero *target);
 
-    void print(SuperHero *hero);
+        void PushFront(SuperHero *target);
 
-    int save(const char *path);
+        SuperHero *PopBack();
 
-    int load(const char *path);
+        SuperHero *PopFront();
 
-    void insert(SuperHero *hero, int n);
-};
+        int IsEmpty();
+
+        void clear();
+
+        void print();
+
+        void print(SuperHero *hero);
+
+        int save(const char *path);
+
+        int load(const char *path);
+
+        void insert(SuperHero *hero, int n);
+
+        DeQuSH search(char name[32]);
+
+        DeQuSH filter(double strength_rating, char c);
+
+        SuperHero *copy(SuperHero *sh);
+    };
+}
