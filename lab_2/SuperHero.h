@@ -4,8 +4,11 @@
 #define SH_H
 
 namespace Heroes {
+    class DeQuSH;
+
     class SuperHero {
     public:
+
         char *getName() const;
 
         void setName(char *name);
@@ -41,7 +44,7 @@ namespace Heroes {
 
         SuperHero *next;
         SuperHero *previous;
-
+        SuperHero();
         SuperHero(char name[32], char real_name[32], char bd[32], int male, char ability[32], char weaknesses[128],
                   int win_amount, double strength_rating);
 
@@ -51,7 +54,21 @@ namespace Heroes {
 
         SuperHero &operator=(SuperHero &v);
 
-        SuperHero &operator+(DeQuSH &dq);
+        //SuperHero &operator+(DeQuSH &dq);
+
+        //SuperHero &operator-(DeQuSH &dq);
+        bool operator<(double str);
+
+        bool operator==(double str);
+
+        bool operator>(double str);
+
+        friend SuperHero &operator+(SuperHero &sh, DeQuSH &dq);
+
+        friend SuperHero &operator-(SuperHero &sh, DeQuSH &dq);
+
+        friend std::ostream &operator<<(std::ostream &os, SuperHero *sh);
+        friend std::istream &operator>>(std::istream &is, SuperHero *sh);
 
     private:
         char *name;
@@ -64,6 +81,53 @@ namespace Heroes {
         double strength_rating;
 
 
+    };
+
+    class DeQuSH {
+    public:
+        DeQuSH();
+
+        SuperHero *first;
+        SuperHero *last;
+
+        static DeQuSH create_empty();
+
+        void PushBack(SuperHero *target);
+
+        void PushFront(SuperHero *target);
+
+        SuperHero *PopBack();
+
+        SuperHero *PopFront();
+
+        int IsEmpty();
+
+        void clear();
+
+        void print();
+
+        void print(SuperHero *hero);
+
+        int save(const char *path);
+
+        int load(const char *path);
+
+        void insert(SuperHero *hero, int n);
+
+        DeQuSH search(char name[32]);
+
+        DeQuSH filter(double strength_rating, char c);
+
+        SuperHero *copy(SuperHero *sh);
+
+        //DeQuSH &operator+(SuperHero &sh);
+
+        //DeQuSH &operator-(SuperHero &sh);
+        SuperHero *operator[](int i);
+
+        friend DeQuSH &operator+(DeQuSH &dq, SuperHero &sh);
+
+        friend DeQuSH &operator-(DeQuSH &dq, SuperHero &sh);
     };
 }
 #endif
