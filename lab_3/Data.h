@@ -13,9 +13,7 @@ private:
     int win_amount;
     double strength_rating;
 public:
-    Data(){
 
-    }
     char *getName() const {
         return name;
     }
@@ -78,6 +76,29 @@ public:
 
     void setStrength_rating(double strength_rating) {
         this->strength_rating = strength_rating;
+    }
+    Data(char name[32], char real_name[32],char bd[32],int male, char ability[32],char weaknesses[128],int win_amount, double strength_rating){
+        this->name=new char[32];
+        this->real_name=new char[32];
+        this->bd=new char[32];
+        this->ability=new char[32];
+        this->weaknesses=new char[128];
+        setName(name);
+        setReal_name(real_name);
+        setBd(bd);
+        setMale(male);
+        setAbility(ability);
+        setWeaknesses(weaknesses);
+        setWin_amount(win_amount);
+        setStrength_rating(strength_rating);
+    }
+    ~Data(){
+        delete[] this->name;
+        delete[] this->real_name;
+        delete[] this->bd;
+        delete[] this->ability;
+        delete[] this->weaknesses;
+
     }
 };
 #endif
