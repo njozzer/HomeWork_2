@@ -66,8 +66,8 @@ public:
         return win_amount;
     }
 
-    void setWin_amount(int win_amount) {
-        this->win_amount = win_amount;
+    void setWin_amount(int target) {
+        this->win_amount = target;
     }
 
     double getStrength_rating() const {

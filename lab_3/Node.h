@@ -2,15 +2,22 @@
 #include "Data.h"
 #ifndef NODE_H
 #define NODE_H
-class Node{
+class Node {
 public:
     Node *next;
     Node *previous;
-    virtual void print(){
-        std::cout<<"Node class print"<<"\n";
+    void setNext(Node *next){
+        this->next=next;
     }
-    virtual Data* data_pointer(){
-        return nullptr;
+    Node* getNext(){
+        return this->next;
     }
+    void setPrevious(Node *previous){
+        this->previous=previous;
+    }
+    Node* getPrevious(){
+        return this->previous;
+    }
+    virtual Data* data_pointer() = 0;
 };
 #endif
