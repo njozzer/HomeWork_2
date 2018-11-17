@@ -64,7 +64,7 @@ public:
         std::cout << "**********************************" << std::endl;
     }
     void print(){
-        Node *current = this->getFirst();
+        Node *current = getFirst();
         if ( current == nullptr ) {
             throw ListException();
             return;
