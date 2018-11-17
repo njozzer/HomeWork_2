@@ -52,7 +52,7 @@ int main() {
     }
 */
     try{
-        Node *d=q[-11];
+        Node *d=q[10];
         std::cout << d->data_pointer()->getName() << '\n';
     }catch(ListWrongIndexException e){
         std::cout << e.what() << '\n';
