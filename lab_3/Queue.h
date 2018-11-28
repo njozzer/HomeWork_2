@@ -102,7 +102,12 @@ public:
                 curr = curr->next;
                 j++;
             }
-
+            if(curr==nullptr){
+                throw ListWrongIndexException();
+            }
+            if(abs(i)!=j){
+                throw ListWrongIndexException();
+            }
             return curr;
         }
         if(i < 0){
@@ -111,6 +116,9 @@ public:
             while (curr != nullptr && abs(i) != j) {
                 curr = curr->previous;
                 j++;
+            }
+            if(curr == nullptr){
+                throw ListWrongIndexException();
             }
             if(abs(i)!=j){
                 throw ListWrongIndexException();

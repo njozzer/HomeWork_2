@@ -42,7 +42,7 @@ int main() {
     }catch(ListException e){
         std::cout << e.what() << '\n';
     }*/
-    /*
+
     try{
         Queue p=q.filter(321,'=');
         std::cout << casd << '\n';
@@ -50,7 +50,7 @@ int main() {
     }catch(ListException e){
         std::cout << e.what() << '\n';
     }
-*/
+
     try{
         Node *d=q[10];
         std::cout << d->data_pointer()->getName() << '\n';
